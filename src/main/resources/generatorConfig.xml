@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--导入数据库连接配置-->
+    <properties resource="generator.properties"></properties>
+
+
+    <context id="jrbm_mysql" targetRuntime="MyBatis3">
+        <!--数据库连接配置-->
+        <jdbcConnection driverClass="${jdbc.driverClass}"
+                        connectionURL="${jdbc.connectionURL}"
+                        userId="${jdbc.userId}"
+                        password="${jdbc.password}">
+        </jdbcConnection>
+
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.jrsportsgame.jrbm.model" targetProject=".\src\main\java">
+
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper"  targetProject=".\src\main\resources">
+
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.jrsportsgame.jrbm.mapper"  targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!--生成全部表tableName设为%-->
+        <table tableName="basicplayer">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+
+
+    </context>
+</generatorConfiguration>
