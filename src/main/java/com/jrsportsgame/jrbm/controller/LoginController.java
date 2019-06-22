@@ -36,10 +36,16 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
+
+//    @GetMapping("/")
+//    public String redirectLoginPage(){
+//       return "redirect:/login";
+//    }
     @GetMapping("/")
     public String getLoginPage(){
         return "login";
     }
+
 
     @PostMapping("/login")
     public String login(HttpServletRequest request,
@@ -76,6 +82,6 @@ public class LoginController {
         session.removeAttribute("uid");
         session.removeAttribute("username");
         session.removeAttribute("tid");
-        
+        return "redirect:/";
     }
 }
