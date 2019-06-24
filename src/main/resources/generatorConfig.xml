@@ -34,7 +34,7 @@
 
         <!--生成全部表tableName设为%-->
         <table tableName="basicplayer">
-            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <generatedKey column="bpid" sqlStatement="MySql" identity="true"/>
         </table>
 
 

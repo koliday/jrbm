@@ -5,6 +5,7 @@ import com.jrsportsgame.jrbm.mapper.BasicplayerMapper;
 import com.jrsportsgame.jrbm.mapper.TeaminfoMapper;
 import com.jrsportsgame.jrbm.mapper.UserplayersMapper;
 import com.jrsportsgame.jrbm.model.*;
+import com.jrsportsgame.jrbm.service.intf.BasicPlayerService;
 import com.jrsportsgame.jrbm.service.intf.MyTeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class MyTeamServiceImpl implements MyTeamService {
     @Autowired
     private UserplayersMapper userplayersMapper;
     @Autowired
-    private BasicplayerMapper basicplayerMapper;
+    private BasicPlayerService basicPlayerService;
     @Autowired
     private TeaminfoMapper teaminfoMapper;
 
@@ -29,15 +30,11 @@ public class MyTeamServiceImpl implements MyTeamService {
         List<Userplayers> userplayersList=userplayersMapper.selectByExample(userplayersExample);
 
         //根据所有bpid获得球员对应信息
-        BasicplayerExample basicplayerExample=new BasicplayerExample();
         List<MyTeamPlayerDTO> myTeamPlayerDTOList=new ArrayList<>();
         for(Userplayers userplayers:userplayersList){
-            basicplayerExample.clear();
-            basicplayerExample.createCriteria().andBpidEqualTo(userplayers.getBpid());
-            List<Basicplayer> basicplayers = basicplayerMapper.selectByExample(basicplayerExample);
-            if(!basicplayers.isEmpty()) {
-                Basicplayer basicplayer=basicplayers.get(0);
-                myTeamPlayerDTOList.add(new MyTeamPlayerDTO(userplayers.getUpid(),basicplayer.getChname(),basicplayer.getOffensive(),basicplayer.getDefensive()));
+            Basicplayer basicplayer=basicPlayerService.getBasicPlayerByBpid(userplayers.getBpid());
+            if(basicplayer!=null) {
+                myTeamPlayerDTOList.add(new MyTeamPlayerDTO(userplayers.getUpid(),basicplayer.getChname(),basicplayer.getOffensive(),basicplayer.getDefensive(),basicplayer.getPosition()));
             }
         }
         return myTeamPlayerDTOList;

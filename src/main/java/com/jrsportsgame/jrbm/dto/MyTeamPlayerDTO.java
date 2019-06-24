@@ -10,11 +10,13 @@ public class MyTeamPlayerDTO {
     private String chname;
     private Integer offensive;
     private Integer deffensive;
+    private String position;
 
-    public MyTeamPlayerDTO(Integer upid, String chname, Integer offensive, Integer deffensive) {
+    public MyTeamPlayerDTO(Integer upid, String chname, Integer offensive, Integer deffensive, String position) {
         this.upid = upid;
         this.chname = chname;
         this.offensive = offensive;
         this.deffensive = deffensive;
+        this.position = position;
     }
 }
