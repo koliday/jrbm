@@ -33,8 +33,8 @@
         </javaClientGenerator>
 
         <!--生成全部表tableName设为%-->
-        <table tableName="basicplayer">
-            <generatedKey column="bpid" sqlStatement="MySql" identity="true"/>
+        <table tableName="userplayers">
+            <generatedKey column="upid" sqlStatement="MySql" identity="true"/>
         </table>
 
 
