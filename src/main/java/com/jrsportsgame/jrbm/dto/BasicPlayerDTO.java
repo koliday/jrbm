@@ -1,5 +1,6 @@
 package com.jrsportsgame.jrbm.dto;
 
+import com.jrsportsgame.jrbm.model.Basicplayer;
 import lombok.Getter;
 import lombok.Setter;
 /**
@@ -26,4 +27,16 @@ public class BasicPlayerDTO {
     private Integer offensive;
     //基础球员防守能力
     private Integer defensive;
+
+    public BasicPlayerDTO(Basicplayer basicplayer) {
+        this.bpid=basicplayer.getBpid();
+        this.enname=basicplayer.getEnname();
+        this.chname=basicplayer.getChname();
+        this.position=basicplayer.getPosition();
+        this.offensive=basicplayer.getOffensive();
+        this.defensive=basicplayer.getDefensive();
+    }
+
+    public BasicPlayerDTO() {
+    }
 }

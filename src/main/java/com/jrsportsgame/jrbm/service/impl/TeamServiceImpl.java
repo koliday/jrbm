@@ -10,6 +10,7 @@ import com.jrsportsgame.jrbm.model.*;
 import com.jrsportsgame.jrbm.service.intf.BasicPlayerService;
 import com.jrsportsgame.jrbm.service.intf.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +25,8 @@ public class TeamServiceImpl implements TeamService {
     private BasicPlayerService basicPlayerService;
     @Autowired
     private TeaminfoMapper teaminfoMapper;
+
+
 
     @Override
     public TeamPlayerListDTO getTeamPlayerList(Integer tid) {
@@ -83,13 +86,14 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public TeamInfoDTO getTeamInfo(Integer tid) {
+
+
         TeaminfoExample teaminfoExample=new TeaminfoExample();
         teaminfoExample.createCriteria().andTidEqualTo(tid);
         List<Teaminfo> teaminfos = teaminfoMapper.selectByExample(teaminfoExample);
-        Teaminfo teamInfo=new Teaminfo();
         if(teaminfos.isEmpty())
             return null;
-        teamInfo=teaminfos.get(0);
+        Teaminfo teamInfo=teaminfos.get(0);
         //计算球队进攻和防守值
         int offensive=0;
         int defensive=0;

@@ -8,6 +8,10 @@ import com.jrsportsgame.jrbm.model.UserAuthorizeExample;
 import com.jrsportsgame.jrbm.model.UserExample;
 import com.jrsportsgame.jrbm.service.intf.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +22,11 @@ public class LoginServiceImpl implements LoginService {
     private UserMapper userMapper;
     @Autowired
     private UserAuthorizeMapper userAuthorizeMapper;
+    @Autowired
+    private RedisTemplate<Object,Object> redisTemplate;
 
-    public Integer loginByUsername(String username,String password){
+    @Override
+    public Integer loginByUsername(String username, String password){
         //首先检查用户名是否存在，不存在则返回1
         UserExample userExample=new UserExample();
         userExample.createCriteria().andUsernameEqualTo(username);
@@ -35,5 +42,21 @@ public class LoginServiceImpl implements LoginService {
             return -2;
         //如果用户名和密码正确，返回用户uid
         return userAuthorize.get(0).getUid();
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        RedisSerializer redisKeySerializer=new StringRedisSerializer();
+        RedisSerializer redisValueSerializer=new Jackson2JsonRedisSerializer(Object.class);
+        redisTemplate.setKeySerializer(redisKeySerializer);
+        redisTemplate.setValueSerializer(redisValueSerializer);
+        List<User> users= (List<User>) redisTemplate.opsForValue().get("user");
+        if(users==null){
+            UserExample userExample=new UserExample();
+            userExample.createCriteria();
+            users= userMapper.selectByExample(userExample);
+            redisTemplate.opsForValue().set("user", users);
+        }
+        return users;
     }
 }
