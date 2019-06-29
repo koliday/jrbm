@@ -4,16 +4,20 @@ import com.jrsportsgame.jrbm.dto.BasicPlayerDTO;
 import com.jrsportsgame.jrbm.dto.TeamInfoDTO;
 import com.jrsportsgame.jrbm.dto.TeamPlayerDTO;
 import com.jrsportsgame.jrbm.dto.TeamPlayerListDTO;
+import com.jrsportsgame.jrbm.mapper.MyUserPlayersMapper;
 import com.jrsportsgame.jrbm.mapper.TeaminfoMapper;
 import com.jrsportsgame.jrbm.mapper.UserplayersMapper;
 import com.jrsportsgame.jrbm.model.*;
 import com.jrsportsgame.jrbm.service.intf.BasicPlayerService;
+import com.jrsportsgame.jrbm.service.intf.FreeMarketService;
 import com.jrsportsgame.jrbm.service.intf.TeamService;
+import com.jrsportsgame.jrbm.service.intf.UserPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +26,15 @@ public class TeamServiceImpl implements TeamService {
     @Autowired
     private UserplayersMapper userplayersMapper;
     @Autowired
+    private MyUserPlayersMapper myUserPlayersMapper;
+    @Autowired
     private BasicPlayerService basicPlayerService;
     @Autowired
     private TeaminfoMapper teaminfoMapper;
-
-
+    @Autowired
+    private FreeMarketService freeMarketService;
+    @Autowired
+    private UserPlayerService userPlayerService;
 
     @Override
     public TeamPlayerListDTO getTeamPlayerList(Integer tid) {
@@ -67,7 +75,9 @@ public class TeamServiceImpl implements TeamService {
             else
                 unregList.add(teamPlayerDTO);
         }
-        //由于球队最少不低于8名球员，即5名主力和3名替补，因此这里需要替补不足7个，非激活不足3个的情况进行验证，并补入null以便前端进行判断
+        /*
+         * 由于球队最少不低于8名球员，即5名主力和3名替补，因此这里需要替补不足7个，非激活不足3个的情况进行验证，并补入null以便前端进行判断
+         */
         for(int subsize=subList.size();subsize<7;subsize++){
             subList.add(null);
         }
@@ -86,8 +96,6 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public TeamInfoDTO getTeamInfo(Integer tid) {
-
-
         TeaminfoExample teaminfoExample=new TeaminfoExample();
         teaminfoExample.createCriteria().andTidEqualTo(tid);
         List<Teaminfo> teaminfos = teaminfoMapper.selectByExample(teaminfoExample);
@@ -186,4 +194,67 @@ public class TeamServiceImpl implements TeamService {
             return 0;
         return 1;
     }
+
+    @Transactional
+    @Override
+    public Integer fireTeamPlayer(Integer tid, Integer upid) {
+        //第一步：将被解雇球员的status设为2，表示进入自由市场
+        UserplayersExample userplayersExample=new UserplayersExample();
+        userplayersExample.createCriteria().andUpidEqualTo(upid).andTidEqualTo(tid);
+        Userplayers firedUserPlayer=new Userplayers();
+        firedUserPlayer.setStatus(2);
+        int result = userplayersMapper.updateByExampleSelective(firedUserPlayer, userplayersExample);
+        if(result < 1)
+            return 0;
+        //第二步：调整球员位置
+        firedUserPlayer=userPlayerService.getUserPlayerByUpid(upid);
+        int firedPlayerPosition=firedUserPlayer.getPosition();
+        adjustFiredPlayer(firedUserPlayer.getTid(),firedPlayerPosition);
+        //第三步：封装firedTeamPlayerDTO，创建自由球员，球员正式流入自由市场
+        TeamPlayerDTO firedTeamPlayerDTO=new TeamPlayerDTO();
+        userplayersExample.clear();
+        userplayersExample.createCriteria().andUpidEqualTo(upid);
+        List<Userplayers> userplayersList = userplayersMapper.selectByExample(userplayersExample);
+        if(userplayersList.isEmpty())
+            return 0;
+        Integer firedPlayerBpid=userplayersList.get(0).getBpid();
+        firedTeamPlayerDTO.setUpid(upid);
+        firedTeamPlayerDTO.setPosition(firedUserPlayer.getPosition());
+        firedTeamPlayerDTO.setSalary(firedUserPlayer.getSalary());
+        firedTeamPlayerDTO.setTid(firedUserPlayer.getTid());
+        firedTeamPlayerDTO.setBasicPlayerDTO(new BasicPlayerDTO(basicPlayerService.getBasicPlayerByBpid(firedPlayerBpid)));
+
+        freeMarketService.createFreeMarketPlayer(firedTeamPlayerDTO, 1);
+        return result;
+    }
+
+    /*
+     * 如果解雇的是首发，则使用第一替补（position=6）进行替换，并将后面的球员向前移动
+     * 如果解雇的是替补，则将该替补后的所有替补向前移动一个
+     * 如果是未激活球员，则将该球员后的所有未激活球员向前移动一个
+     */
+    private void adjustFiredPlayer(Integer tid,Integer position){
+        if(position<=5){
+            myUserPlayersMapper.substituteForFiredPlayer(tid,position);
+            myUserPlayersMapper.adjustFiredPlayerPostion(tid,6);
+        }else if(position<=12){
+            myUserPlayersMapper.adjustFiredPlayerPostion(tid,position);
+        }else{
+            myUserPlayersMapper.adjustUnregFiredPlayerPosition(tid,position);
+        }
+    }
+
+    @Override
+    public TeamPlayerDTO getTeamPlayerDTOByUpid(Integer upid) {
+        UserplayersExample userplayersExample=new UserplayersExample();
+        userplayersExample.createCriteria().andUpidEqualTo(upid);
+        List<Userplayers> userplayersList = userplayersMapper.selectByExample(userplayersExample);
+        if(userplayersList.isEmpty())
+            return null;
+        TeamPlayerDTO teamPlayerDTO=new TeamPlayerDTO(userplayersList.get(0));
+        return teamPlayerDTO;
+    }
+
+
+    //自动调整最佳阵容
 }

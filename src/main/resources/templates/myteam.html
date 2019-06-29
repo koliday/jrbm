@@ -304,6 +304,7 @@
                                                             <a class='dropdown-item' data-toggle="modal" data-target="#player_info_modal" href='#'><i class='la la-edit'></i> 查看</a>
                                                             <a class='dropdown-item' href='#'><i class='la la-leaf'></i> 谈判</a>
                                                             <a class='dropdown-item player-exchange' data-toggle="modal" th:data-name="${starter.getBasicPlayerDTO().getChname()}" th:data-upid="${starter.getUpid()}" data-target="#player_exchange_modal" href='#'><i class='la la-print'></i> 换人</a>
+                                                             <a class='dropdown-item fire-btn' th:data-upid="${starter.getUpid()}" href='#'><i class='la la-leaf'></i> 解雇</a>
                                                         </div>
                                                     </span>
                                                     <a href='#' class='btn btn-sm btn-clean btn-icon btn-icon-md' title='View'>
@@ -334,6 +335,7 @@
                                                             <a class='dropdown-item' data-toggle="modal" data-target="#player_info_modal" href='#'><i class='la la-edit'></i> 查看</a>
                                                             <a class='dropdown-item' href='#'><i class='la la-leaf'></i> 谈判</a>
                                                             <a class='dropdown-item player-exchange' data-toggle="modal" th:data-name="${sub.getBasicPlayerDTO().getChname()}" th:data-upid="${sub.getUpid()}" data-target="#player_exchange_modal" href='#'><i class='la la-print'></i> 换人</a>
+                                                             <a class='dropdown-item fire-btn' th:data-upid="${sub.getUpid()}" href='#'><i class='la la-leaf'></i> 解雇</a>
                                                         </div>
                                                     </span>
                                                         <a href='#' class='btn btn-sm btn-clean btn-icon btn-icon-md' title='View' th:if="${sub!=null}">
@@ -370,6 +372,7 @@
                                                             <a class='dropdown-item' data-toggle="modal" data-target="#player_info_modal" href='#'><i class='la la-edit'></i> 查看</a>
                                                             <a class='dropdown-item' href='#'><i class='la la-leaf'></i> 谈判</a>
                                                             <a class='dropdown-item player-exchange' data-toggle="modal" th:data-name="${unreg.getBasicPlayerDTO().getChname()}" th:data-upid="${unreg.getUpid()}" data-target="#player_exchange_modal" href='#'><i class='la la-print'></i> 换人</a>
+                                                            <a class='dropdown-item fire-btn' th:data-upid="${unreg.getUpid()}" href='#'><i class='la la-leaf'></i> 解雇</a>
                                                         </div>
                                                         </span>
                                                         <a th:if="${unreg!=null}" href='#' class='btn btn-sm btn-clean btn-icon btn-icon-md' title='View'>

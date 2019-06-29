@@ -63,14 +63,15 @@ public class FreeMarketController {
         Integer start=Integer.valueOf(request.getParameter("start"));
         Integer length=Integer.valueOf(request.getParameter("length"));
 
-        List<FreeMarketPlayerDTO> freeMarketPlayerDTOPageList = freeMarketService.getFreeMarketPlayerDTOPageList(start, length);
+        List<FreeMarketPlayerDTO> freeMarketPlayerDTOPageList = freeMarketService.getFreeMarketPlayerDTOPageList(start+1, length);
 
         DataTablesPageUtil<FreeMarketPlayerDTO> dataTablesForFreeMarket=new DataTablesPageUtil<>();
         dataTablesForFreeMarket.setDraw(draw);
-        dataTablesForFreeMarket.setRecordsTotal(freeMarketService.getFreeMarketPlayerCount().intValue());
+        dataTablesForFreeMarket.setRecordsTotal(freeMarketService.getFreeMarketPlayerCount());
         dataTablesForFreeMarket.setRecordsFiltered(dataTablesForFreeMarket.getRecordsTotal());
         dataTablesForFreeMarket.setData(freeMarketPlayerDTOPageList);
 
+        System.out.println(JSON.toJSONString(dataTablesForFreeMarket));
         return JSON.toJSONString(dataTablesForFreeMarket);
     }
 
@@ -78,7 +79,7 @@ public class FreeMarketController {
 
     @GetMapping("/testcreate")
     public void testCreate(){
-        for(int i=1;i<=100;i++){
+        for(int i=1;i<=10;i++){
             TeamPlayerDTO teamPlayerDTO=new TeamPlayerDTO();
             Random random=new Random(System.currentTimeMillis());
 

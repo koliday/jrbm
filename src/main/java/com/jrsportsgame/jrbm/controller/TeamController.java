@@ -71,4 +71,13 @@ public class TeamController {
         return JSON.toJSONString(exchangeresult);
     }
 
+    @ResponseBody
+    @PostMapping(value = "/fireplayer",produces = "application/json;charset=UTF-8")
+    public String firePlayer(HttpServletRequest request,
+                                 HttpSession session){
+        Integer upid=Integer.valueOf(request.getParameter("upid"));
+        Integer tid=(Integer)session.getAttribute("tid");
+        Integer fireResult=teamService.fireTeamPlayer(tid,upid);
+        return JSON.toJSONString(fireResult);
+    }
 }

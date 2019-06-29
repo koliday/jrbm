@@ -16,4 +16,8 @@ public interface TeamService {
     List<TeamPlayerDTO> getTeamPlayerDTOList(Integer tid);
     //换人
     Integer exchangeTeamPlayer(Integer tid,Integer exchangeFromUpid,Integer exchangeToUpid);
+    //解雇
+    Integer fireTeamPlayer(Integer tid,Integer upid);
+    //通过upid获取球员信息
+    TeamPlayerDTO getTeamPlayerDTOByUpid(Integer upid);
 }

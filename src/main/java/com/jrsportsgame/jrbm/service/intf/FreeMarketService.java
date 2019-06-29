@@ -18,10 +18,10 @@ public interface FreeMarketService {
     //读取自由市场所有球员
     List<FreeMarketPlayerDTO> getAllFreeMarketPlayerDTOList();
     //读取自由市场球员分页
-    List<FreeMarketPlayerDTO> getFreeMarketPlayerDTOPageList(Integer pagenum,Integer pagesize);
+    List<FreeMarketPlayerDTO> getFreeMarketPlayerDTOPageList(Integer start,Integer length);
     //移除指定过期球员
     void removeExpiredFreeMarketPlayer(String fpid);
     //获得当前自由球员数量
-    Long getFreeMarketPlayerCount();
+    Integer getFreeMarketPlayerCount();
 
 }

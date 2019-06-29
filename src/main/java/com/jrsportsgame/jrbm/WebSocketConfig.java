@@ -1,4 +1,4 @@
-package com.jrsportsgame;
+package com.jrsportsgame.jrbm;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

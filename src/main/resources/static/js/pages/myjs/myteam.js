@@ -22,6 +22,7 @@ $(document).ready(function () {
         });
     });
 
+    //换人
     $("#exchange-btn").click(function () {
         var fromid=$("#exchange_from").data("fromid");
         var toid=$("#exchange_to").val();
@@ -47,4 +48,27 @@ $(document).ready(function () {
         });
     });
 
+    //解雇
+    $(".fire-btn").click(function () {
+        var upid=$(this).data("upid");
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8888/fireplayer",
+            data:{
+               upid:upid
+            },
+            dataType: "json",
+            success: function (data) {
+                if(data==1){
+                    alert("解雇成功！");
+                    window.location.reload();
+                }else{
+                    alert("解雇失败！");
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.statusText);
+            }
+        });
+    });
 });
