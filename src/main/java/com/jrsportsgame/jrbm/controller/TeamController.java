@@ -47,6 +47,8 @@ public class TeamController {
         model.addAttribute("teamInfoDTO",teamInfoDTO);
         return "myteam";
     }
+
+
     /*
      * 查看球队所有球员，可用于查看可替换球员
      */

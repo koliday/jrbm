@@ -272,9 +272,205 @@
                             </div>
                         </div>
                         <div class="kt-portlet__body">
+                            <p id="opponent" style="visibility: hidden"></p>
                             <button id="startmatching-btn" class="btn btn-block btn-outline-success">开始匹配</button>
+                            <button id="match-confirm-btn" class="btn btn-block btn-outline-success" style="visibility: hidden;">确认比赛</button>
+                        </div>
+
+                    </div>
+
+
+                    <!--begin: 阵容安排 -->
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="kt-portlet">
+                                <div class="kt-portlet__head">
+                                    <div class="kt-portlet__head-label">
+                                        <h3 class="kt-portlet__head-title">
+                                            主队阵容
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div id="home-starter" class="kt-portlet__body">
+                                    <div class="kt-separator kt-separator--space-lg kt-separator--border-dashed"></div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <button class="btn btn-block btn-outline-primary">调整</button>
+                                        </div>
+                                        <div class="col-6">
+                                            <button class="btn btn-block btn-outline-success">准备</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="kt-portlet">
+                                <div class="kt-portlet__head">
+                                    <div class="kt-portlet__head-label">
+                                        <h3 class="kt-portlet__head-title">
+                                            主队阵容
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="kt-portlet__body">
+                                    <div class="kt-notification-v2">
+                                        <a href="#" class="kt-notification-v2__item">
+                                            <div class="kt-notification-v2__item-icon">
+                                                <i class="flaticon-bell kt-font-success"></i>
+                                            </div>
+                                            <div class="kt-notification-v2__itek-wrapper">
+                                                <div class="kt-notification-v2__item-title">
+                                                    5 new user generated report
+                                                </div>
+                                                <div class="kt-notification-v2__item-desc">
+                                                    Reports based on sales
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="kt-notification-v2__item">
+                                            <div class="kt-notification-v2__item-icon">
+                                                <i class="flaticon2-box kt-font-danger"></i>
+                                            </div>
+                                            <div class="kt-notification-v2__itek-wrapper">
+                                                <div class="kt-notification-v2__item-title">
+                                                    2 new items submited
+                                                </div>
+                                                <div class="kt-notification-v2__item-desc">
+                                                    by Grog John
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="kt-notification-v2__item">
+                                            <div class="kt-notification-v2__item-icon">
+                                                <i class="flaticon-psd kt-font-brand"></i>
+                                            </div>
+                                            <div class="kt-notification-v2__itek-wrapper">
+                                                <div class="kt-notification-v2__item-title">
+                                                    79 PSD files generated
+                                                </div>
+                                                <div class="kt-notification-v2__item-desc">
+                                                    Reports based on sales
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="kt-notification-v2__item">
+                                            <div class="kt-notification-v2__item-icon">
+                                                <i class="flaticon2-supermarket kt-font-warning"></i>
+                                            </div>
+                                            <div class="kt-notification-v2__itek-wrapper">
+                                                <div class="kt-notification-v2__item-title">
+                                                    $2900 worth producucts sold
+                                                </div>
+                                                <div class="kt-notification-v2__item-desc">
+                                                    Total 234 items
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="kt-notification-v2__item">
+                                            <div class="kt-notification-v2__item-icon">
+                                                <i class="flaticon-paper-plane-1 kt-font-success"></i>
+                                            </div>
+                                            <div class="kt-notification-v2__itek-wrapper">
+                                                <div class="kt-notification-v2__item-title">
+                                                    4.5h-avarage response time
+                                                </div>
+                                                <div class="kt-notification-v2__item-desc">
+                                                    Fostest is Barry
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="kt-separator kt-separator--space-lg kt-separator--border-dashed"></div>
+
+                                    <!--begin::Dropdown-->
+                                    <div class="dropdown">
+                                        <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                            Dropdown example
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-xl" aria-labelledby="dropdownMenuButton">
+                                            <div class="kt-notification-v2">
+                                                <a href="#" class="kt-notification-v2__item">
+                                                    <div class="kt-notification-v2__item-icon">
+                                                        <i class="flaticon-bell kt-font-success"></i>
+                                                    </div>
+                                                    <div class="kt-notification-v2__itek-wrapper">
+                                                        <div class="kt-notification-v2__item-title">
+                                                            5 new user generated report
+                                                        </div>
+                                                        <div class="kt-notification-v2__item-desc">
+                                                            Reports based on sales
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <a href="#" class="kt-notification-v2__item">
+                                                    <div class="kt-notification-v2__item-icon">
+                                                        <i class="flaticon2-box kt-font-danger"></i>
+                                                    </div>
+                                                    <div class="kt-notification-v2__itek-wrapper">
+                                                        <div class="kt-notification-v2__item-title">
+                                                            2 new items submited
+                                                        </div>
+                                                        <div class="kt-notification-v2__item-desc">
+                                                            by Grog John
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <a href="#" class="kt-notification-v2__item">
+                                                    <div class="kt-notification-v2__item-icon">
+                                                        <i class="flaticon-psd kt-font-brand"></i>
+                                                    </div>
+                                                    <div class="kt-notification-v2__itek-wrapper">
+                                                        <div class="kt-notification-v2__item-title">
+                                                            79 PSD files generated
+                                                        </div>
+                                                        <div class="kt-notification-v2__item-desc">
+                                                            Reports based on sales
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <a href="#" class="kt-notification-v2__item">
+                                                    <div class="kt-notification-v2__item-icon">
+                                                        <i class="flaticon2-supermarket kt-font-warning"></i>
+                                                    </div>
+                                                    <div class="kt-notification-v2__itek-wrapper">
+                                                        <div class="kt-notification-v2__item-title">
+                                                            $2900 worth producucts sold
+                                                        </div>
+                                                        <div class="kt-notification-v2__item-desc">
+                                                            Total 234 items
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <a href="#" class="kt-notification-v2__item">
+                                                    <div class="kt-notification-v2__item-icon">
+                                                        <i class="flaticon-paper-plane-1 kt-font-success"></i>
+                                                    </div>
+                                                    <div class="kt-notification-v2__itek-wrapper">
+                                                        <div class="kt-notification-v2__item-title">
+                                                            4.5h-avarage response time
+                                                        </div>
+                                                        <div class="kt-notification-v2__item-desc">
+                                                            Fostest is Barry
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--end::Dropdown-->
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+
+
+
+
+                    <!--end: 阵容安排 -->
+
                 </div>
                 <!--end:: 主要内容-->
             </div>
@@ -340,7 +536,6 @@
 
 <!--begin::Page Scripts(used by this page) -->
 <script th:src="@{/js/pages/myjs/rankingmatch.js}" type="text/javascript"></script>
-
 <!--end::Page Scripts -->
 
 

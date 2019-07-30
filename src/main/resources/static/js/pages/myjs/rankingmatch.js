@@ -10,7 +10,15 @@ $(document).ready(function () {
         }
         socket.onmessage = function(event) {
             var datas=event.data;
-            alert(datas);
+            if(datas<1){
+                alert("匹配错误！");
+            }else{
+                $("#startmatching-btn").css("visibility", "hidden");
+
+                $("#opponent").text("您的对手为："+datas+"，是否确认进入比赛？");
+                $("#opponent").css("visibility", "visible");
+                $("#match-confirm-btn").css("visibility", "visible");
+            }
             clearInterval(timer);
             $("#startmatching-btn").attr("class","btn btn-block btn-outline-success");
             $("#startmatching-btn").text("开始匹配");
@@ -102,4 +110,43 @@ $(document).ready(function () {
             }
         });
     }
+
+
+
+    $("#match-confirm-btn").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8888/getteamplayer",
+            data: {
+
+            },
+            dataType: "json",
+            success: function (data) {
+                //加载主力
+                for(var i=0;i<5;i++){
+                    $("#home-starter").prepend("<div class=\"kt-notification-v2\">\n" +
+                        "                                        <a href=\"#\" class=\"kt-notification-v2__item\">\n" +
+                        "                                            <div class=\"kt-notification-v2__item-icon\">\n" +
+                        "                                                <i class=\"flaticon-bell kt-font-success\"></i>\n" +
+                        "                                            </div>\n" +
+                        "                                            <div class=\"kt-notification-v2__itek-wrapper\">\n" +
+                        "                                                <div class=\"kt-notification-v2__item-title\">\n" +
+                        "\n" +data[i].basicPlayerDTO.chname+
+                        "                                                </div>\n" +
+                        "                                                <div class=\"kt-notification-v2__item-desc\">\n" +
+                        "\n" +data[i].basicPlayerDTO.enname+
+                        "                                                </div>\n" +
+                        "                                            </div>\n" +
+                        "                                        </a>\n" +
+                        "\n" +
+                        "                                    </div>")
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.statusText);
+            }
+        });
+    });
 });
+
+
