@@ -20,4 +20,6 @@ public interface TeamService {
     Integer fireTeamPlayer(Integer tid,Integer upid);
     //通过upid获取球员信息
     TeamPlayerDTO getTeamPlayerDTOByUpid(Integer upid);
+
+
 }

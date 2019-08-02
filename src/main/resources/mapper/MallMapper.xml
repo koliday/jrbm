@@ -9,8 +9,10 @@
         <result column="price_coin" jdbcType="INTEGER" property="priceCoin" />
         <result column="price_diamond" jdbcType="INTEGER" property="priceDiamond" />
         <result column="product_desc" jdbcType="VARCHAR" property="productDesc" />
+        <result column="product_amount" jdbcType="INTEGER" property="productAmount" />
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
         <result column="product_status" jdbcType="TINYINT" property="productStatus" />
+        <result column="product_version" jdbcType="INTEGER" property="productVersion" />
     </resultMap>
 
     <select id="getAllProduct" resultMap="ProductMap">

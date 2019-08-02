@@ -1,19 +1,19 @@
-package com.jrsportsgame.jrbm.entity;
+package com.jrsportsgame.jrbm.pojo;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ProductEntity {
+public class Cart {
+    private Integer userId;
+    private Integer teamId;
     private Integer productId;
     private String productName;
     private String productImg;
     private Integer priceCoin;
     private Integer priceDiamond;
+    private String priceStr;
     private String productDesc;
-    private Integer productAmount;
-    private Long createTime;
-    private Integer productStatus;
-    private Integer productVersion;
+    private Integer amount;
 }
