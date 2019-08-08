@@ -11,5 +11,5 @@ public interface MallService {
 
     List<Cart> updateCart(Cart cart);
 
-    List<Cart> getCart(Integer teamId);
+    List<Cart> getCart(Long teamId);
 }

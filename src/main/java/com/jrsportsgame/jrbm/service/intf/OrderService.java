@@ -1,5 +1,7 @@
 package com.jrsportsgame.jrbm.service.intf;
 
+import com.jrsportsgame.jrbm.pojo.Order;
+
 public interface OrderService {
-    void createOrder()
+    Long createOrder(Order order);
 }

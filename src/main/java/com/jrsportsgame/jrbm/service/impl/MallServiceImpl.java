@@ -79,7 +79,7 @@ public class MallServiceImpl implements MallService {
     }
 
     @Override
-    public List<Cart> getCart(Integer teamId) {
+    public List<Cart> getCart(Long teamId) {
         //判断是否有购物车记录
         if(!redisTemplate.hasKey(KEY_PREFIX+teamId))
             return null;

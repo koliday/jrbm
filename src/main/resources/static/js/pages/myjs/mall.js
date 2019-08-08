@@ -9,6 +9,9 @@ $(document).ready(function () {
         addItem(item_selected);
         addItemAlert(item_selected);
     });
+
+
+
     $(document).on("click", ".add-amount", function () {
         var productId = $(this).data("productid");
         addAmount(productId);
@@ -18,6 +21,11 @@ $(document).ready(function () {
         var productId = $(this).data("productid");
         minusAmount(productId);
         updateCart();
+    });
+
+
+    $("#placeOrder").click(function () {
+
     });
 
     function addAmount(productId) {
@@ -150,41 +158,6 @@ $(document).ready(function () {
         toastr.info("将 "+item_selected.data("productname")+" 添加至购物车！")
     }
 
+
+
 });
-
-
-var MallAlert = function() {
-
-    // Private functions
-
-    // basic demo
-    var alert = function() {
-        $('.add_alert').click(function () {
-            toastr.options = {
-                "closeButton": true,
-                "debug": false,
-                "newestOnTop": false,
-                "progressBar": false,
-                "positionClass": "toast-top-right",
-                "preventDuplicates": false,
-                "onclick": null,
-                "showDuration": "200",
-                "hideDuration": "1000",
-                "timeOut": "5000",
-                "extendedTimeOut": "1000",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "fadeOut"
-            };
-            toastr.info("将 "+$(this).data("productname")+" 添加至购物车！")
-    });
-
-    return {
-        // public functions
-        init: function() {
-            alert();
-        }
-    };
-    };
-};

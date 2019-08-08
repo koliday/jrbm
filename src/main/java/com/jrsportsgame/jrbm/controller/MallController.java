@@ -4,7 +4,10 @@ import com.jrsportsgame.jrbm.dto.ProductDTO;
 import com.jrsportsgame.jrbm.dto.TeamInfoDTO;
 import com.jrsportsgame.jrbm.entity.ProductEntity;
 import com.jrsportsgame.jrbm.pojo.Cart;
+import com.jrsportsgame.jrbm.pojo.Order;
+import com.jrsportsgame.jrbm.pojo.OrderDetail;
 import com.jrsportsgame.jrbm.service.intf.MallService;
+import com.jrsportsgame.jrbm.service.intf.OrderService;
 import com.jrsportsgame.jrbm.service.intf.TeamService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +30,10 @@ public class MallController {
 
     @Autowired
     private MallService mallService;
-
     @Autowired
     private TeamService teamService;
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/mall")
     public String getMallPage(Model model,HttpSession session){
@@ -43,8 +47,8 @@ public class MallController {
 
     @PostMapping("/updateCart")
     public ResponseEntity<List<Cart>> updateCart(@RequestBody Cart cart,HttpSession session){
-        Integer userId=(Integer)session.getAttribute("uid");
-        Integer teamId=(Integer)session.getAttribute("tid");
+        Long userId=(Long)session.getAttribute("uid");
+        Long teamId=(Long)session.getAttribute("tid");
         cart.setUserId(userId);
         cart.setTeamId(teamId);
         List<Cart> cartList = mallService.updateCart(cart);
@@ -56,7 +60,7 @@ public class MallController {
 
     @PostMapping("/getCart")
     public ResponseEntity<List<Cart>> getCart(HttpSession session){
-        Integer teamId=(Integer)session.getAttribute("tid");
+        Long teamId=(Long)session.getAttribute("tid");
         List<Cart> cartList = mallService.getCart(teamId);
         if(cartList==null||cartList.isEmpty()){
             return ResponseEntity.ok(new ArrayList<>());
@@ -64,4 +68,15 @@ public class MallController {
         return ResponseEntity.ok(cartList);
     }
 
+    @PostMapping("/createOrder")
+    public ResponseEntity<Void> createOrder(@RequestBody List<OrderDetail> orderDetails, HttpSession session){
+        Long userId=(Long)session.getAttribute("uid");
+        Long teamId=(Long)session.getAttribute("tid");
+        Order order=new Order();
+        order.setUserId(userId);
+        order.setTeamId(teamId);
+        order.setOrderDetails(orderDetails);
+        orderService.createOrder(order);
+
+    }
 }
