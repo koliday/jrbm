@@ -13,11 +13,11 @@
         <result column="order_status" jdbcType="TINYINT" property="orderStatus" />
     </resultMap>
 
-    <insert id="createOrder" parameterType="com.jrsportsgame.jrbm.pojo.Order">
+    <insert id="createOrder" useGeneratedKeys="true" keyProperty="order_id" parameterType="com.jrsportsgame.jrbm.pojo.Order">
         insert into "order" values(null,#{order.orderNo},#{order.pay_coin},#{order.pay_diamond},#{order.user_id},#{order.team_id},#{order.createTime},#{orderStatus});
     </insert>
 
-    <insert id="createOrderDetail" parameterType="java.util.List">
+    <insert id="createOrderDetail" useGeneratedKeys="true" keyProperty="order_detail_id" parameterType="java.util.List">
         <foreach collection="orderDetailList" item="od" separator="," open="(" close=")">
             insert into order_detail values(null,#{od.orderId},#{od.productId},#{od.productName},#{od.productImg},#{od.priceCoin},#{od.priceDiamond},#{od.currency},#{od.amount});
         </foreach>

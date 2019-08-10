@@ -37,7 +37,7 @@ public class MallController {
 
     @GetMapping("/mall")
     public String getMallPage(Model model,HttpSession session){
-        Integer teamId=(Integer)session.getAttribute("tid");
+        Long teamId=(Long)session.getAttribute("tid");
         List<ProductDTO> productList = mallService.getProductList();
         TeamInfoDTO teamInfo = teamService.getTeamInfo(teamId);
         model.addAttribute("teamInfo",teamInfo);
@@ -69,14 +69,14 @@ public class MallController {
     }
 
     @PostMapping("/createOrder")
-    public ResponseEntity<Void> createOrder(@RequestBody List<OrderDetail> orderDetails, HttpSession session){
+    public ResponseEntity<Long> createOrder(@RequestBody List<OrderDetail> orderDetails, HttpSession session){
         Long userId=(Long)session.getAttribute("uid");
         Long teamId=(Long)session.getAttribute("tid");
         Order order=new Order();
         order.setUserId(userId);
         order.setTeamId(teamId);
         order.setOrderDetails(orderDetails);
-        orderService.createOrder(order);
-
+        Long orderId = orderService.createOrder(order);
+        return ResponseEntity.ok(orderId);
     }
 }

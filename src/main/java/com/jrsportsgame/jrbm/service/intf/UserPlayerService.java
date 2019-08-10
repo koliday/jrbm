@@ -1,7 +1,7 @@
 package com.jrsportsgame.jrbm.service.intf;
 
-import com.jrsportsgame.jrbm.model.Userplayers;
+import com.jrsportsgame.jrbm.entity.UserPlayerEntity;
 
 public interface UserPlayerService {
-    Userplayers getUserPlayerByUpid(Integer upid);
+    UserPlayerEntity getUserPlayerByUpid(Long upid);
 }

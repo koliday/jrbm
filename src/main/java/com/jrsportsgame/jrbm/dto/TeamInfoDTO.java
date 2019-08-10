@@ -18,7 +18,7 @@ public class TeamInfoDTO {
     private String teamName;
     private Integer offensive;
     private Integer defensive;
-    private Integer jrCoin;
-    private Integer jrDiamond;
-    private Integer exp;
+    private Long jrCoin;
+    private Long jrDiamond;
+    private Long exp;
 }

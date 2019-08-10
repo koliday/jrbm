@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jrsportsgame.jrbm.mapper.BasicPlayerMapper">
+
+    <resultMap id="BasicPlayerMap" type="com.jrsportsgame.jrbm.entity.BasicPlayerEntity">
+        <id column="bp_id" jdbcType="INTEGER" property="bpId" />
+        <result column="bp_enname" jdbcType="VARCHAR" property="bpEnName" />
+        <result column="bp_chname" jdbcType="VARCHAR" property="bpChName" />
+        <result column="bp_position" jdbcType="VARCHAR" property="bpPosition" />
+        <result column="bp_offensive" jdbcType="INTEGER" property="bpOffensive" />
+        <result column="bp_defensive" jdbcType="INTEGER" property="bpDefensive" />
+    </resultMap>
+
+    <select id="getBasicPlayerByBpId" parameterType="java.lang.Integer" resultMap="BasicPlayerMap">
+        select * from basicplayer where bp_id=#{bpId};
+    </select>
+
+
+
+
+</mapper>
+
+

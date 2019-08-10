@@ -25,7 +25,21 @@ $(document).ready(function () {
 
 
     $("#placeOrder").click(function () {
-
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8888/createOrder",
+            async:false,
+            data: JSON.stringify(cart),
+            dataType: "json",
+            contentType:"application/json;charset=utf-8",
+            success: function (data) {
+                var orderId=data;
+                alert("创建订单："+orderId);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.statusText);
+            }
+        });
     });
 
     function addAmount(productId) {
@@ -86,7 +100,7 @@ $(document).ready(function () {
     }
 
     function updateServerCart(productId, productName, productImg, priceCoin, priceDiamond, priceStr, amount) {
-        var currentchart={
+        var currentcart={
             userId:-1,
             teamId:-1,
             productId: productId,
@@ -102,7 +116,7 @@ $(document).ready(function () {
             type: "POST",
             url: "http://localhost:8888/updateCart",
             async:false,
-            data: JSON.stringify(currentchart),
+            data: JSON.stringify(currentcart),
             dataType: "json",
             contentType:"application/json;charset=utf-8",
             success: function (data) {

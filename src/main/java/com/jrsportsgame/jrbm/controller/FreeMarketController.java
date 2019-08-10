@@ -1,13 +1,7 @@
 package com.jrsportsgame.jrbm.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.github.pagehelper.PageInfo;
-import com.jrsportsgame.jrbm.dto.BasicPlayerDTO;
 import com.jrsportsgame.jrbm.dto.FreeMarketPlayerDTO;
-import com.jrsportsgame.jrbm.dto.TeamPlayerDTO;
-import com.jrsportsgame.jrbm.model.Basicplayer;
-import com.jrsportsgame.jrbm.service.impl.BasicPlayerServiceImpl;
-import com.jrsportsgame.jrbm.service.impl.FreeMarketServiceImpl;
 import com.jrsportsgame.jrbm.service.intf.BasicPlayerService;
 import com.jrsportsgame.jrbm.service.intf.FreeMarketService;
 import com.jrsportsgame.jrbm.util.DataTablesPageUtil;
@@ -19,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Random;
 
 @Controller
 public class FreeMarketController {
@@ -73,27 +66,6 @@ public class FreeMarketController {
 
         System.out.println(JSON.toJSONString(dataTablesForFreeMarket));
         return JSON.toJSONString(dataTablesForFreeMarket);
-    }
-
-
-
-    @GetMapping("/testcreate")
-    public void testCreate(){
-        for(int i=1;i<=10;i++){
-            TeamPlayerDTO teamPlayerDTO=new TeamPlayerDTO();
-            Random random=new Random(System.currentTimeMillis());
-
-            Basicplayer basicPlayer = basicPlayerService.getBasicPlayerByBpid(random.nextInt(300) + 1);
-            BasicPlayerDTO basicPlayerDTO=new BasicPlayerDTO(basicPlayer);
-
-            teamPlayerDTO.setBasicPlayerDTO(basicPlayerDTO);
-            teamPlayerDTO.setTid(-1);
-            teamPlayerDTO.setSalary(1000);
-            teamPlayerDTO.setPosition(1);
-            teamPlayerDTO.setUpid(i);
-
-            freeMarketService.createFreeMarketPlayer(teamPlayerDTO,1);
-        }
     }
 
 }

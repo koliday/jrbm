@@ -1,15 +1,11 @@
 package com.jrsportsgame.jrbm.dto;
 
-import com.jrsportsgame.jrbm.mapper.BasicplayerMapper;
-import com.jrsportsgame.jrbm.model.Basicplayer;
-import com.jrsportsgame.jrbm.model.BasicplayerExample;
-import com.jrsportsgame.jrbm.model.Userplayers;
+import com.jrsportsgame.jrbm.entity.BasicPlayerEntity;
+import com.jrsportsgame.jrbm.entity.UserPlayerEntity;
 import com.jrsportsgame.jrbm.service.intf.BasicPlayerService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
 
 /**
 
@@ -26,22 +22,22 @@ public class TeamPlayerDTO {
     @Autowired
     private BasicPlayerService basicPlayerService;
     //用户球员ID
-    private Integer upid;
+    private Long upid;
     //对应的基础球员信息
     private BasicPlayerDTO basicPlayerDTO;
     //所在的球队ID
-    private Integer tid;
+    private Long tid;
     //球员工资
-    private Integer salary;
+    private Long salary;
     //球员在球队中的位置
     private Integer position;
 
-    public TeamPlayerDTO(Userplayers userplayers) {
-        this.upid=userplayers.getUpid();
-        this.tid=userplayers.getTid();
-        this.salary=userplayers.getSalary();
-        this.position=userplayers.getPosition();
-        Basicplayer basicPlayer = basicPlayerService.getBasicPlayerByBpid(userplayers.getBpid());
+    public TeamPlayerDTO(UserPlayerEntity userPlayer) {
+        this.upid=userPlayer.getUpId();
+        this.tid=userPlayer.getTeamId();
+        this.salary=userPlayer.getUpSalary();
+        this.position=userPlayer.getUpPosition();
+        BasicPlayerEntity basicPlayer = basicPlayerService.getBasicPlayerByBpid(userPlayer.getBpId());
         this.basicPlayerDTO=new BasicPlayerDTO(basicPlayer);
     }
 

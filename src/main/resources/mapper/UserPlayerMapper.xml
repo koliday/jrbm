@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jrsportsgame.jrbm.mapper.UserPlayerMapper">
+  <resultMap id="UserPlayerMap" type="com.jrsportsgame.jrbm.entity.UserPlayerEntity">
+
+    <id column="up_id" jdbcType="BIGINT" property="upId" />
+    <result column="bp_id" jdbcType="INTEGER" property="bpId" />
+    <result column="team_id" jdbcType="BIGINT" property="teamId" />
+    <result column="up_salary" jdbcType="BIGINT" property="upSalary" />
+      <result column="up_position" jdbcType="INTEGER" property="upPosition" />
+    <result column="up_status" jdbcType="TINYINT" property="upStatus" />
+  </resultMap>
+
+  <update id="adjustFiredPlayerPostion">
+    update userplayer
+    set up_position =up_position -1
+    where
+    team_id= #{tid} and up_position > #{position} and up_position &lt;=12
+  </update>
+
+  <update id="substituteForFiredPlayer">
+    update userplayer
+    set up_position = #{position}
+    where
+    team_id= #{tid} and up_position = 6
+  </update>
+
+  <update id="adjustUnregFiredPlayerPosition">
+    update userplayer
+    set up_position =up_position -1
+    where
+    team_id= #{tid} and up_position > #{position} and up_position &lt;=15
+  </update>
+
+  <select id="getTeamPlayerListByTeamId" parameterType="java.lang.Long" resultMap="UserPlayerMap">
+    select * from userplayer where team_id=#{teamId} and up_status=1 order by up_position asc;
+  </select>
+
+</mapper>

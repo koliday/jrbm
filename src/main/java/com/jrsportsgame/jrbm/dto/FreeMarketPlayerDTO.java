@@ -1,6 +1,5 @@
 package com.jrsportsgame.jrbm.dto;
 
-import com.jrsportsgame.jrbm.model.Basicplayer;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jrsportsgame.jrbm.mapper.TeamInfoMapper">
+
+    <resultMap id="TeamInfoMap" type="com.jrsportsgame.jrbm.entity.TeamInfoEntity">
+        <id column="team_id" jdbcType="BIGINT" property="teamId" />
+        <result column="user_id" jdbcType="BIGINT" property="userId" />
+        <result column="server_id" jdbcType="TINYINT" property="serverId" />
+        <result column="team_name" jdbcType="VARCHAR" property="teamName" />
+        <result column="team_coin" jdbcType="BIGINT" property="teamCoin" />
+        <result column="team_diamond" jdbcType="BIGINT" property="teamDiamond" />
+        <result column="team_exp" jdbcType="BIGINT" property="teamExp" />
+    </resultMap>
+
+
+    <select id="getTeamInfoByTeamId" parameterType="java.lang.Long" resultMap="TeamInfoMap">
+        select * from team_info where team_id=#{teamId};
+    </select>
+
+
+
+
+</mapper>
+
+

@@ -1,9 +1,9 @@
 package com.jrsportsgame.jrbm.service.intf;
 
-import com.jrsportsgame.jrbm.model.Basicplayer;
+import com.jrsportsgame.jrbm.entity.BasicPlayerEntity;
 
 
 
 public interface BasicPlayerService {
-    Basicplayer getBasicPlayerByBpid(Integer bpid);
+    BasicPlayerEntity getBasicPlayerByBpid(Integer bpid);
 }

@@ -1,13 +1,9 @@
 package com.jrsportsgame.jrbm.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.jrsportsgame.jrbm.dto.FreeMarketPlayerDTO;
 import com.jrsportsgame.jrbm.dto.TeamPlayerDTO;
-import com.jrsportsgame.jrbm.mapper.FreemarketMapper;
-import com.jrsportsgame.jrbm.mapper.MyFreeMarketMapper;
-import com.jrsportsgame.jrbm.model.*;
+import com.jrsportsgame.jrbm.mapper.FreeMarketMapper;
 import com.jrsportsgame.jrbm.service.intf.BasicPlayerService;
 import com.jrsportsgame.jrbm.service.intf.FreeMarketService;
 import com.jrsportsgame.jrbm.service.intf.UserPlayerService;
@@ -25,10 +21,10 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class FreeMarketServiceImpl implements FreeMarketService {
-    @Autowired
-    private FreemarketMapper freemarketMapper;
-    @Autowired
-    private MyFreeMarketMapper myFreeMarketMapper;
+//    @Autowired
+//    private FreemarketMapper freemarketMapper;
+//    @Autowired
+//    private FreeMarketMapper freeMarketMapper;
     @Autowired
     private BasicPlayerService basicPlayerService;
     @Autowired
@@ -97,7 +93,7 @@ public class FreeMarketServiceImpl implements FreeMarketService {
     //upid过期一个，将freemarketplayerstart++,并将该球员的status设为0
     public void removeExpiredFreeMarketPlayer(String fpid){
         redisTemplate.opsForValue().increment("freemarketplayerstart");
-        myFreeMarketMapper.changeUserPlayerStatusByFpid(Integer.valueOf(fpid.substring(2)));
+        //freeMarketMapper.changeUserPlayerStatusByFpid(Integer.valueOf(fpid.substring(2)));
     }
 
 
