@@ -19,7 +19,7 @@ import java.util.List;
 @Configuration
 //@EnableWebMvc不能加
 public class WebConfig implements WebMvcConfigurer {
-    private static final List<String> EXCLUDE_PATH = Arrays.asList("/login","/testfreemarket","/testcreate","/freemarketpage","/freemarket","/error","/css/**","/js/**","/img/**","/media/**","/vendors/**");
+    private static final List<String> EXCLUDE_PATH = Arrays.asList("/login","/wxlogin","/testfreemarket","/testOrder","/freemarketpage","/freemarket","/error","/css/**","/js/**","/img/**","/media/**","/vendors/**");
     @Autowired
     SessionInterceptor sessionInterceptor;
     @Override

@@ -13,13 +13,11 @@ import java.util.List;
  */
 
 public class OrderUtil {
-    @Autowired
-    private static IdWorker idWorker;
     /*
      * 生成订单编号
      */
     public static Long getNewOrderId(){
-        return idWorker.nextId();
+        return new IdWorker().nextId();
     }
     /*
      * 计算订单价格
@@ -30,6 +28,10 @@ public class OrderUtil {
         int costDiamond=0;
         List<OrderDetail> orderDetailList = order.getOrderDetails();
         for(OrderDetail orderDetail:orderDetailList){
+            //测试
+            orderDetail.setPriceCoin(0);
+            orderDetail.setCurrency(1);
+            //------------
             if(orderDetail.getCurrency()==0){
                 costCoin+=orderDetail.getPriceCoin();
             }else{

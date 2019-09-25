@@ -4,5 +4,5 @@ import com.jrsportsgame.jrbm.pojo.Order;
 
 public interface OrderService {
     Long createOrder(Order order);
-    Long payOrder(Order order);
+    Integer payOrder(Order order);
 }

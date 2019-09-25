@@ -32,8 +32,6 @@ public class MallController {
     private MallService mallService;
     @Autowired
     private TeamService teamService;
-    @Autowired
-    private OrderService orderService;
 
     @GetMapping("/mall")
     public String getMallPage(Model model,HttpSession session){
@@ -68,15 +66,5 @@ public class MallController {
         return ResponseEntity.ok(cartList);
     }
 
-    @PostMapping("/createOrder")
-    public ResponseEntity<Long> createOrder(@RequestBody List<OrderDetail> orderDetails, HttpSession session){
-        Long userId=(Long)session.getAttribute("uid");
-        Long teamId=(Long)session.getAttribute("tid");
-        Order order=new Order();
-        order.setUserId(userId);
-        order.setTeamId(teamId);
-        order.setOrderDetails(orderDetails);
-        Long orderId = orderService.createOrder(order);
-        return ResponseEntity.ok(orderId);
-    }
+
 }

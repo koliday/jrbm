@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jrsportsgame.jrbm.mapper.BagMapper">
+
+    <resultMap id="BagMap" type="com.jrsportsgame.jrbm.entity.BagEntity">
+        <id column="bag_id" jdbcType="BIGINT" property="bagId" />
+        <result column="team_id" jdbcType="BIGINT" property="teamId" />
+        <result column="product_id" jdbcType="BIGINT" property="productId" />
+        <result column="product_quantity" jdbcType="INTEGER" property="productQuantity" />
+    </resultMap>
+
+    <insert id="createOrder" useGeneratedKeys="true" keyProperty="orderId" parameterType="com.jrsportsgame.jrbm.pojo.Order">
+        insert into order_mall values(null,#{order.orderNo},#{order.payCoin},#{order.payDiamond},#{order.userId},#{order.teamId},#{order.createTime},#{order.orderStatus});
+    </insert>
+
+    <insert id="createOrderDetail" useGeneratedKeys="true" keyProperty="orderDetailId" parameterType="java.util.List">
+        insert into order_detail values
+        <foreach collection="orderDetailList" item="od" separator=",">
+            (null,#{od.orderId},#{od.productId},#{od.productName},#{od.productImg},#{od.priceCoin},#{od.priceDiamond},#{od.currency},#{od.amount})
+        </foreach>
+    </insert>
+
+    <select id="getBagListByTeamId" resultMap="BagMap">
+        select b.*,p.product_name,p.product_img,p.product_desc from bag b left join product p on b.product_id=p.product_id where team_id=#{teamId} and product_quantity>0;
+    </select>
+
+
+
+</mapper>
+
+

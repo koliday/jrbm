@@ -2,7 +2,9 @@ package com.jrsportsgame.jrbm.pojo;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
+@ToString
 @Getter
 @Setter
 public class OrderDetail {
@@ -17,4 +19,5 @@ public class OrderDetail {
     private String priceStr;
     private String productDesc;
     private Integer amount;
+
 }

@@ -5,24 +5,36 @@
     <resultMap id="OrderMap" type="com.jrsportsgame.jrbm.entity.OrderEntity">
         <id column="order_id" jdbcType="BIGINT" property="orderId" />
         <result column="order_no" jdbcType="BIGINT" property="orderNo" />
-        <result column="pay_coin" jdbcType="VARCHAR" property="pay_coin" />
-        <result column="pay_diamond" jdbcType="INTEGER" property="pay_diamond" />
+        <result column="pay_coin" jdbcType="INTEGER" property="payCoin" />
+        <result column="pay_diamond" jdbcType="INTEGER" property="payDiamond" />
         <result column="user_id" jdbcType="BIGINT" property="userId" />
         <result column="team_id" jdbcType="BIGINT" property="teamId" />
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
         <result column="order_status" jdbcType="TINYINT" property="orderStatus" />
     </resultMap>
 
-    <insert id="createOrder" useGeneratedKeys="true" keyProperty="order_id" parameterType="com.jrsportsgame.jrbm.pojo.Order">
-        insert into "order" values(null,#{order.orderNo},#{order.pay_coin},#{order.pay_diamond},#{order.user_id},#{order.team_id},#{order.createTime},#{orderStatus});
+    <insert id="createOrder" useGeneratedKeys="true" keyProperty="orderId" parameterType="com.jrsportsgame.jrbm.pojo.Order">
+        insert into order_mall values(null,#{order.orderNo},#{order.payCoin},#{order.payDiamond},#{order.userId},#{order.teamId},#{order.createTime},#{order.orderStatus});
     </insert>
 
-    <insert id="createOrderDetail" useGeneratedKeys="true" keyProperty="order_detail_id" parameterType="java.util.List">
-        <foreach collection="orderDetailList" item="od" separator="," open="(" close=")">
-            insert into order_detail values(null,#{od.orderId},#{od.productId},#{od.productName},#{od.productImg},#{od.priceCoin},#{od.priceDiamond},#{od.currency},#{od.amount});
+    <insert id="createOrderDetail" useGeneratedKeys="true" keyProperty="orderDetailId" parameterType="java.util.List">
+        insert into order_detail values
+        <foreach collection="orderDetailList" item="od" separator=",">
+            (null,#{od.orderId},#{od.productId},#{od.productName},#{od.productImg},#{od.priceCoin},#{od.priceDiamond},#{od.currency},#{od.amount})
         </foreach>
     </insert>
 
+    <update id="payOrder" parameterType="com.jrsportsgame.jrbm.pojo.Order">
+        update team_info set team_coin=team_coin-#{order.payCoin},team_diamond=team_diamond-#{order.payDiamond} where team_id=#{order.teamId};
+    </update>
+
+    <update id="updateOrderStatus" parameterType="com.jrsportsgame.jrbm.pojo.Order">
+        update order_mall set order_status=1 where order_id=#{order.orderId};
+    </update>
+
+    <update id="updateProduct">
+
+    </update>
 
 
 

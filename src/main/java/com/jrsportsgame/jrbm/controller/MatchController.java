@@ -20,7 +20,7 @@ public class MatchController {
     @PostMapping("/startmatching")
     @ResponseBody
     public String startMatching(HttpSession session){
-        Integer tid= (Integer) session.getAttribute("tid");
+        Long tid= (Long) session.getAttribute("tid");
         return JSON.toJSONString(tid);
     }
 }

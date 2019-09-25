@@ -25,6 +25,7 @@ $(document).ready(function () {
 
 
     $("#placeOrder").click(function () {
+        //alert(JSON.stringify(cart));
         $.ajax({
             type: "POST",
             url: "http://localhost:8888/createOrder",
@@ -33,8 +34,15 @@ $(document).ready(function () {
             dataType: "json",
             contentType:"application/json;charset=utf-8",
             success: function (data) {
-                var orderId=data;
-                alert("创建订单："+orderId);
+                alert(data.orderResult);
+                if(data.orderResult==0){
+                    alert("购买失败，请重试！");
+                }else if(data.orderResult==1){
+                    alert("购买成功！");
+                }else{
+                    alert("余额不足！");
+                }
+                window.location.reload();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert(jqXHR.statusText);

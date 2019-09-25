@@ -13,5 +13,7 @@ public interface OrderMapper{
 
     Long createOrderDetail(@Param("orderDetailList")List<OrderDetail> orderDetailList);
 
-    Long payOrder(Order order);
+    Integer payOrder(@Param("order") Order order);
+
+    Long updateOrderStatus(@Param("order") Order order);
 }
