@@ -92,7 +92,7 @@
                                 <!--用户名-->
                                 <span class="kt-header__topbar-username kt-hidden-mobile" th:text="${session.username}"></span>
                                 <!--<img class="kt-hidden" alt="Pic" src="/img/profile.jpg" />-->
-                                <img  alt="Pic" th:src="@{/img/profile.jpg}" />
+                                <img  alt="Pic" th:src="@{${session.avatar}}" />
                                 <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
                                 <!--<span class="kt-badge kt-badge&#45;&#45;username kt-badge&#45;&#45;unified-success kt-badge&#45;&#45;lg kt-badge&#45;&#45;rounded kt-badge&#45;&#45;bold">S</span>-->
                             </div>
@@ -103,7 +103,7 @@
                             <div class="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x" th:style="'background-image: url('+ @{/media/misc/bg-1.jpg}+');'">
                                 <div class="kt-user-card__avatar">
                                     <!--<img class="kt-hidden" alt="Pic" src="./img/profile.jpg" />-->
-                                    <img alt="Pic" th:src="@{/img/profile.jpg}" />
+                                    <img alt="Pic" th:src="@{${session.avatar}}" />
                                     <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
                                     <!--<span class="kt-badge kt-badge&#45;&#45;lg kt-badge&#45;&#45;rounded kt-badge&#45;&#45;bold kt-font-success">S</span>-->
                                 </div>

@@ -68,6 +68,7 @@ public class LoginController {
             //这里tid仅做实验使用
             session.setAttribute("tid",loginResult);
             session.setAttribute("username",username);
+            session.setAttribute("avatar","/img/profile.jpg" );
             return "redirect:/myteam";
         }
         model.addAttribute("loginResult",loginExceptionMap.get(loginResult));

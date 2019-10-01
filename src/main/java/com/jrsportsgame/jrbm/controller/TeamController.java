@@ -35,7 +35,7 @@ public class TeamController {
     @GetMapping("/myteam")
     public String myTeam(HttpSession session,
                          Model model){
-        Long tid= (Long) session.getAttribute("tid");
+         Long tid= (Long) session.getAttribute("tid");
         //获取我的球队信息
         TeamInfoDTO teamInfoDTO= teamService.getTeamInfo(tid);
         //获取我的球员信息列表

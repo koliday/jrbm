@@ -14,7 +14,7 @@
     </resultMap>
 
     <select id="getUserByUsername" parameterType="java.lang.String" resultMap="UserMap">
-        select * from user where user_name=#{username};
+        select * from user where binary user_name=#{username} and user_type=0;
     </select>
 
 
